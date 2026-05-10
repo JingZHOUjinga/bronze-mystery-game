@@ -3,164 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>青铜之谜·古蜀迷踪 | 在线互动推理游戏</title>
-  <meta name="description" content="穿越三千年古蜀王国，在三星堆的青铜面具与通天神树之间，破解一桩密室杀人案。">
+  <title>金沙迷雾 · 古蜀秘案</title>
+  <meta name="description" content="金沙神殿大祭司之死——调查、审讯、推理，揭开古蜀秘案的真相。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔱</text></svg>">
 </head>
 <body>
-
-  <!-- ========== NOTIFICATION ========== -->
-  <div id="notification" class="notification"></div>
-
-  <!-- ========== TITLE SCREEN ========== -->
-  <div id="screen-title" class="screen active">
-    <img id="title-bg" alt="背景">
-    <div class="title-content">
-      <h1>青铜之谜</h1>
-      <div class="subtitle">古 蜀 迷 踪</div>
-      <p class="tagline">三千年前的金沙祭坛，一位守护通天神树碎片六十年的祭司长被杀于密室之中。<br>铜门从内反锁，四名守卫整夜未离——凶手是如何进入的？</p>
-      <button id="btn-start" class="btn-primary">开始调查</button>
-    </div>
-  </div>
-
-  <!-- ========== PROLOGUE SCREEN ========== -->
-  <div id="screen-prologue" class="screen">
-    <div class="prologue-box">
-      <h2>序章</h2>
-      <p>你是犇小九——一个游戏设计师。一次偶然的机缘，你被卷入了三千年前的古蜀王国。</p>
-      <p>金沙祭坛上，大祭司长蚕丛的尸体倒卧在石台旁，胸口插着一把蛇纹青铜短剑。他的右手紧紧攥着一片通天神树碎片——那是他用生命守护的东西。</p>
-      <p>密室从内部反锁，门外四名守卫整夜未曾离开。窗户？没有窗户。这是一座由厚重石墙围成的祭祀密室。</p>
-      <p>望帝妃——代行朝政的王后——给了你三天时间。"查出真相，第一个告诉我。"</p>
-      <p>六个嫌疑人，每人都有秘密。三个在说谎。一个是凶手。</p>
-      <p style="color: var(--gold); text-align: center; margin-top: 1.5rem; font-family: var(--font-title);">探索场景，收集线索，质疑谎言，揭开真相。</p>
-      <button id="btn-enter-game" class="btn-primary">进入古蜀王国</button>
-    </div>
-  </div>
-
-  <!-- ========== EXPLORE SCREEN ========== -->
-  <div id="screen-explore" class="screen">
-    <div class="toolbar">
-      <h2>🏛️ 古蜀王国</h2>
-      <button id="btn-clues" class="toolbar-btn">📜 线索本 <span id="toolbar-clue-count" class="toolbar-badge">0</span></button>
-      <button id="btn-hint" class="toolbar-btn">💡 攻略提示</button>
-      <button id="btn-casefile" class="toolbar-btn" disabled>📋 提交档案</button>
-    </div>
-    <div id="scene-grid" class="scene-grid"></div>
-  </div>
-
-  <!-- ========== SCENE SCREEN ========== -->
-  <div id="screen-scene" class="screen">
-    <div class="toolbar">
-      <button id="btn-back-from-scene" class="btn-back">← 返回地图</button>
-      <h2 id="scene-title"></h2>
-      <button class="toolbar-btn" onclick="Game.showClueBook()">📜 线索本 <span class="toolbar-badge" id="toolbar-clue-count-2">0</span></button>
-    </div>
-    <div class="scene-header">
-      <h2 id="scene-title-display" style="display:none"></h2>
-      <p id="scene-subtitle" class="scene-subtitle"></p>
-    </div>
-    <div class="scene-body">
-      <img id="scene-main-img" class="scene-main-img" alt="场景">
-      <div id="scene-description" class="scene-description"></div>
-      <div id="scene-npcs" class="scene-npcs"></div>
-      <div id="scene-search" class="scene-search"></div>
-      <div id="scene-message" class="scene-message"></div>
-    </div>
-  </div>
-
-  <!-- ========== DIALOGUE SCREEN ========== -->
-  <div id="screen-dialogue" class="screen">
-    <div class="toolbar">
-      <button id="btn-back-from-dialogue" class="btn-back">← 返回场景</button>
-      <h2 id="dialogue-header-name">对话</h2>
-    </div>
-    <div class="dialogue-container">
-      <div class="dialogue-left">
-        <img id="dialogue-portrait" class="dialogue-portrait" alt="人物">
-        <h3 id="dialogue-name"></h3>
-        <div id="dialogue-title" class="npc-title"></div>
-        <p id="dialogue-desc" class="npc-desc"></p>
-      </div>
-      <div class="dialogue-right">
-        <div id="dialogue-text" class="dialogue-text"></div>
-        <div id="dialogue-topics" class="dialogue-topics"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========== CLUE BOOK OVERLAY ========== -->
-  <div id="clue-book" class="overlay">
-    <div class="overlay-content">
-      <button id="close-clues" class="close-btn">&times;</button>
-      <h3>📜 线索本 · 已收集 <span id="clue-count">0</span> 条</h3>
-      <div id="clue-list"></div>
-    </div>
-  </div>
-
-  <!-- ========== HINT PANEL OVERLAY ========== -->
-  <div id="hint-panel" class="overlay">
-    <div class="overlay-content">
-      <button id="close-hints" class="close-btn">&times;</button>
-      <h3>💡 攻略提示</h3>
-      <p style="color: var(--text-dim); margin-bottom: 16px; font-size: 0.85rem;">查看提示会扣除对应分数。尽量依靠自己的推理能力！</p>
-      <div id="hint-list"></div>
-    </div>
-  </div>
-
-  <!-- ========== CASE FILE SCREEN ========== -->
-  <div id="screen-casefile" class="screen">
-    <div class="toolbar">
-      <button id="btn-back-explore" class="btn-back">← 返回调查</button>
-      <h2>📋 案件档案</h2>
-    </div>
-    <div class="casefile-container">
-      <h2>案件档案</h2>
-      <p class="cf-subtitle">根据你收集的线索，填写你的推理结论。</p>
-
-      <div class="cf-group">
-        <label>🔪 凶手是谁？</label>
-        <select id="cf-killer"></select>
-      </div>
-
-      <div class="cf-group">
-        <label>💀 犯罪动机</label>
-        <select id="cf-motive"></select>
-      </div>
-
-      <div class="cf-group">
-        <label>🗝️ 作案手法</label>
-        <select id="cf-method"></select>
-      </div>
-
-      <div class="cf-group">
-        <label>📎 关键证据（勾选你认为最关键的证据）</label>
-        <div id="cf-evidence" class="cf-evidence"></div>
-      </div>
-
-      <button id="submit-casefile" class="btn-primary">提交档案</button>
-    </div>
-  </div>
-
-  <!-- ========== ENDING SCREEN ========== -->
-  <div id="screen-ending" class="screen">
-    <div class="ending-container">
-      <div class="ending-score-box">
-        <div class="ending-score"><span id="ending-score">0</span>分</div>
-        <div class="ending-rank" id="ending-rank"></div>
-        <div class="ending-stars" id="ending-stars"></div>
-      </div>
-      <p class="ending-desc" id="ending-desc"></p>
-      <div class="ending-feedback" id="ending-feedback"></div>
-      <button id="btn-replay" class="btn-primary">再次挑战</button>
-    </div>
-  </div>
-
-  <!-- Scripts -->
-  <script src="js/images.js"></script>
-  <script src="js/scenes.js"></script>
-  <script src="js/characters.js"></script>
-  <script src="js/deduction.js"></script>
-  <script src="js/game.js"></script>
+  <div id="app"></div>
+  <script src="js/data.js"></script>
+  <script src="js/data_chars.js"></script>
+  <script src="js/data_extra.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
